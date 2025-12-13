@@ -3,7 +3,7 @@ import shutil
 from glob import glob
 import random
 
-original_data_dir = "../../Downloads/archive/images/Images" #my path to original dataset
+original_data_dir = "../dog_classifier/data/raw/" #my path to original dataset
 base_dir = "../dog_classifier/data/"
 
 train_dir = os.path.join(base_dir, "train")
