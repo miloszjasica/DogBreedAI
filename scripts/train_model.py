@@ -11,6 +11,7 @@ val_dir   = "../dog_classifier/data/val"
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
+    #transforms.Lambda(lambda img: img.convert("RGB")),
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
@@ -32,7 +33,7 @@ model = model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001)
 
-num_epochs = 10
+num_epochs = 9
 for epoch in range(num_epochs):
     model.train()
     running_loss = 0.0
@@ -64,5 +65,5 @@ for epoch in range(num_epochs):
     epoch_val_acc = corrects.double() / len(val_dataset)
     print(f"Epoch {epoch+1}/{num_epochs}, Validation Loss: {epoch_val_loss:.4f}, Accuracy: {epoch_val_acc:.4f}")
 
-torch.save(model.state_dict(), "dog_breed_classifier.pth")
+torch.save(model.state_dict(), "../dog_classifier/models/dog_breed_classifier.pth")
 print("Training complete and model saved.")
