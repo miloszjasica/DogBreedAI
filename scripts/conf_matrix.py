@@ -25,7 +25,9 @@ transform = transforms.Compose([
 val_dataset = datasets.ImageFolder(VAL_DIR, transform=transform)
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 class_names = val_dataset.classes
-num_classes = len(class_names)
+clean_names = [name.split("-", 1)[1] if "-" in name else name for name in class_names]
+num_classes = len(clean_names)
+
 
 model = models.resnet18(weights=None)
 model.fc = nn.Linear(model.fc.in_features, num_classes)
