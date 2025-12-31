@@ -1,1 +1,21 @@
 dog_classifier/data
+# Node modules
+node_modules/
+
+# Build outputs
+build/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+
+# IDE/OS
+.vscode/
+.DS_Store
+*.log
