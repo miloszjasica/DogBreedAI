@@ -1,34 +1,43 @@
-# Overview
-This project allows you to:
-- Train a ResNet18 model on dog breed images
-- Fine-tune the last layers for better accuracy
-- Evaluate the model with confusion matrix and top misclassifications
-- Visualize Grad-CAM heatmaps to see which parts of the image influence predictions
-- Deploy a FastAPI backend for predictions
-- Connect a simple React frontend for uploading dog images and displaying results
+# *Dog Breed AI – ML + FastAPI + React*
 
-# Demo
+## Overview
+This project includes:
 
+- Pretrained ResNet18 classifier for 120 dog breeds
+- End to end system: training -> evaluation -> Grad-CAM explainability -> API -> web UI
+- Reproducible scripts for dataset building, fine-tuning & inference
 
-# Dataset
-1. Dataset used: https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset
-2. To expand the dataset, you can follow these 3 optional steps:
+## Dataset
+1. Source: https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset
+2. Dataset expansion using scraping:
 
-| Script | Description |
-|------|--------|
-| `/scripts/data_scrapper_win_chrome.py` | Extra web scraping to expand dataset |
-| `/scripts/data_scrapped_clean.py` | Cleaning scraped data |
-| `/scripts/data_load.py` | Converting raw dataset into `train/val` format (60/40 split) |
+```bash
+python scripts/data_scrapper_win_chrome.py      # scrape new images
+python scripts/data_scrapped_clean.py           # clean incorrect links / duplicates
+python scripts/data_load.py                     # convert dataset to train/val folders
+```
 
-# Model training
+## Demo
+
+## Model training
 
 Framework: **PyTorch**  
 Base model: **ResNet18 pretrained (ImageNet weights)**
 
-# Evaluation
+```bash
+python scripts/train_model.py
+python scripts/finetuning.py
+```
+
+## Evaluation
 
 Confusion matrix for 120 breeds: helps visualize misclassifications
-Top 10 misclassified breeds:
+
+```bash
+python scripts/conf_matrix.py
+```
+
+- Top 10 misclassified breeds:
 
 ```bash
 Eskimo_dog → Samoyed: 0.3276
@@ -60,7 +69,11 @@ Grad-CAM highlights areas of the image the model focuses on when predicting:
 - Useful for understanding model attention
 - Can verify where model is looking
 
-# API
+```bash
+python scripts/gradcam.py
+```
+
+## API
 
 FastAPI backend exposes a /predict endpoint:
 ``` bash
@@ -101,10 +114,4 @@ Response example:
   ]
 }
 ```
-# Frontend
 
-Built with React
-### You can:
-- Drag & drop or file upload
-- Shows uploaded image
-- Displays top 5 predicted breeds with probabilities
