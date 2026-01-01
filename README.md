@@ -8,7 +8,7 @@ This project includes:
 - Reproducible scripts for dataset building, fine-tuning & inference
 
 ## Dataset
-1. Source: https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset
+1. Source: https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset -> move to `/dog_classifier/data/raw/`
 2. Dataset expansion using scraping:
 
 ```bash
@@ -18,6 +18,7 @@ python scripts/data_load.py                     # convert dataset to train/val f
 ```
 
 ## Demo
+![DemoDogBreedAI](assets/DogBreedAI.gif)
 
 ## Model training
 
@@ -31,7 +32,7 @@ python scripts/finetuning.py
 
 ## Evaluation
 
-Confusion matrix for 120 breeds: helps visualize misclassifications
+**Confusion Matrix** - shows how often the model confuses one breed with another. This is useful to identify systematic errors and visually inspect which breeds are most often misclassified.
 
 ```bash
 python scripts/conf_matrix.py
@@ -61,9 +62,10 @@ miniature_poodle → standard_poodle: 0.2414
 standard_schnauzer → miniature_schnauzer: 0.2373
 ```
 
-- This analysis helps identify hard examples and potential data issues
+- High misclassification rates often occur between visually similar breeds (e.g., miniature vs toy poodles).
+- Identifying these hard examples can help in data augmentation, fine-tuning, or even improving the labeling quality.
 
-# Grad-CAM Visualization
+## Grad-CAM Visualization
 Grad-CAM highlights areas of the image the model focuses on when predicting:
 
 - Useful for understanding model attention
@@ -72,6 +74,8 @@ Grad-CAM highlights areas of the image the model focuses on when predicting:
 ```bash
 python scripts/gradcam.py
 ```
+
+![GradCamEXAMPLE](assets/gradcam-example.png)
 
 ## API
 
@@ -114,4 +118,25 @@ Response example:
   ]
 }
 ```
+
+#  How to run project locally
+```bash
+# Clone repository
+git clone https://github.com/miloszjasica/DogBreedAI
+
+# Create virtual env and install deps
+python -m venv venv
+venv\Scripts\Activate
+pip install -r requirements.txt
+
+# Start backend
+cd scripts
+uvicorn app:app --reload
+
+# Run frontend
+cd frontend
+npm install
+npm start
+```
+
 
